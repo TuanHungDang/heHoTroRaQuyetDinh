@@ -5,7 +5,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const connection = require('./config/database');
+const { authenticateToken } = require('./middleware/authMiddleware');
 
+const authRoute = require('./routes/authRoute');
 // Initialize Express app and set port
 const app = express();
 const port = process.env.PORT || 8888;
@@ -23,6 +25,8 @@ app.use(express.urlencoded({extended: true}));
 
 // Enable CORS with specified options
 app.use(cors(corsOptions));
+
+app.use('/v1/api/', authRoute);
 
 
 // Self-executing async function to connect to DB and start server
