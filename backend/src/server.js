@@ -8,6 +8,7 @@ const connection = require('./config/database');
 const { authenticateToken } = require('./middleware/authMiddleware');
 
 const authRoute = require('./routes/authRoute');
+const ahpRoute = require('./routes/ahpRoute');
 // Initialize Express app and set port
 const app = express();
 const port = process.env.PORT || 8888;
@@ -27,6 +28,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors(corsOptions));
 
 app.use('/v1/api/', authRoute);
+app.use('/v1/api/', ahpRoute);
 
 
 // Self-executing async function to connect to DB and start server
